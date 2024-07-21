@@ -4,11 +4,9 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ToDoTask"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.ToDoTask"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
@@ -38,10 +36,6 @@ android {
     }
     buildFeatures {
         compose = true
-        viewBinding = true
-    }
-    dataBinding {
-        enable = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -54,15 +48,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.room.common)
-    val nav_version = "2.7.7"
-    // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
-    //sqlite
-    implementation("androidx.sqlite:sqlite:2.1.0")
-    implementation("androidx.sqlite:sqlite-framework:2.1.0")
-    implementation("androidx.sqlite:sqlite-ktx:2.1.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
