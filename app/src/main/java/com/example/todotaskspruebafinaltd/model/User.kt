@@ -9,5 +9,5 @@ import androidx.room.PrimaryKey
 data class User(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     @ColumnInfo(name = "username") val username: String,
-    @Ignore var isChecked: Boolean = false // This property won't be stored in the database
+    @Ignore var isChecked: Boolean = false
 )

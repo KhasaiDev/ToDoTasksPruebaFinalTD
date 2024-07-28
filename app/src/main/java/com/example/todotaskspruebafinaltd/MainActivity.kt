@@ -9,7 +9,6 @@ import com.example.todotaskspruebafinaltd.databinding.MainActivityBinding
 import com.example.todotaskspruebafinaltd.model.User
 import com.example.todotaskspruebafinaltd.viewModel.UserViewModel
 
-
 class MainActivity : AppCompatActivity() {
     private val userViewModel: UserViewModel by viewModels()
     private lateinit var binding: MainActivityBinding

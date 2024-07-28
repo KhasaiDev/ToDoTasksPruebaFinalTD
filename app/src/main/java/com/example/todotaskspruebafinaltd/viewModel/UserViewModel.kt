@@ -33,6 +33,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateCheckedState(user: User, isChecked: Boolean) {
         user.isChecked = isChecked
-        // You can save the checked state in your database if needed
+        repository.updateCheckedState(user)
+        loadUsers()
     }
 }

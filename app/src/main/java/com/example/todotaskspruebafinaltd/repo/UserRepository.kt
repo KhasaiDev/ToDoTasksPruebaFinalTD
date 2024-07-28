@@ -13,6 +13,7 @@ class UserRepository(context: Context) {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
             put(UserDatabaseHelper.COLUMN_USERNAME, user.username)
+            put(UserDatabaseHelper.COLUMN_IS_CHECKED, if (user.isChecked) 1 else 0)
         }
         val id = db.insert(UserDatabaseHelper.TABLE_USER, null, values)
         user.id = id.toInt() // Set the id of the user object
@@ -24,6 +25,14 @@ class UserRepository(context: Context) {
         db.delete(UserDatabaseHelper.TABLE_USER, "${UserDatabaseHelper.COLUMN_ID} = ?", arrayOf(user.id.toString()))
     }
 
+    fun updateCheckedState(user: User) {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put(UserDatabaseHelper.COLUMN_IS_CHECKED, if (user.isChecked) 1 else 0)
+        }
+        db.update(UserDatabaseHelper.TABLE_USER, values, "${UserDatabaseHelper.COLUMN_ID} = ?", arrayOf(user.id.toString()))
+    }
+
     fun getAllUsers(): List<User> {
         val db = dbHelper.readableDatabase
         val cursor = db.query(UserDatabaseHelper.TABLE_USER, null, null, null, null, null, null)
@@ -32,12 +41,12 @@ class UserRepository(context: Context) {
             while (moveToNext()) {
                 val id = getInt(getColumnIndexOrThrow(UserDatabaseHelper.COLUMN_ID))
                 val username = getString(getColumnIndexOrThrow(UserDatabaseHelper.COLUMN_USERNAME))
-                val user = User(id, username)
+                val isChecked = getInt(getColumnIndexOrThrow(UserDatabaseHelper.COLUMN_IS_CHECKED)) == 1
+                val user = User(id = id, username = username, isChecked = isChecked)
                 users.add(user)
             }
         }
         cursor.close()
         return users
     }
-
 }

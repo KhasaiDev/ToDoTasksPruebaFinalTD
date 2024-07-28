@@ -13,7 +13,8 @@ import com.example.todotaskspruebafinaltd.model.User
 
 class UserAdapter(
     private val onDeleteClickListener: (User) -> Unit,
-    private val onCheckBoxClickListener: (User, Boolean) -> Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+    private val onCheckBoxClickListener: (User, Boolean) -> Unit
+) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     private var userList = emptyList<User>()
 
     class UserViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -23,7 +24,8 @@ class UserAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_user, parent, false)
         return UserViewHolder(itemView)
     }
 
@@ -41,11 +43,6 @@ class UserAdapter(
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             currentUser.isChecked = isChecked
             onCheckBoxClickListener(currentUser, isChecked)
-            if (isChecked) {
-                holder.username.paintFlags = holder.username.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            } else {
-                holder.username.paintFlags = holder.username.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-            }
         }
 
         if (currentUser.isChecked) {
